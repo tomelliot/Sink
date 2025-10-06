@@ -23,6 +23,8 @@ export default eventHandler((event) => {
   console.log('🔐 [2.auth.ts] Token matches expected:', token === config.siteToken)
   
   const siteToken = event.context.cloudflare.env.SECRET_FROM_STORE.get('SITE_TOKEN')
+  console.log('🔐 [2.auth.ts] siteToken:', siteToken)
+  console.log('🔐 [2.auth.ts] siteToken matches expected:', token === siteToken)
   
   // Check if this is an API endpoint that requires authentication
   if (event.path.startsWith('/api/') && !event.path.startsWith('/api/_')) {
