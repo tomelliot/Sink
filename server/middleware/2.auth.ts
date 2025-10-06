@@ -15,18 +15,15 @@ export default eventHandler((event) => {
   console.log('🔐 [2.auth.ts] Expected site token:', config.siteToken)
   console.log('🔐 [2.auth.ts] Token matches expected:', token === config.siteToken)
   
-  const siteToken = event.context.env.get('SITE_TOKEN')
-  console.log('🔐 [2.auth.ts] siteToken:', siteToken)
-  console.log('🔐 [2.auth.ts] siteToken matches expected:', token === siteToken)
   
   // Check if this is an API endpoint that requires authentication
   if (event.path.startsWith('/api/') && !event.path.startsWith('/api/_')) {
     console.log('🔐 [2.auth.ts] API endpoint detected, checking authentication')
     
-    if (token !== siteToken) {
+    if (token !== config.siteToken) {
       console.log('❌ [2.auth.ts] Authentication failed - token mismatch')
       console.log('❌ [2.auth.ts] Received token:', token)
-      console.log('❌ [2.auth.ts] Expected token:', siteToken)
+      console.log('❌ [2.auth.ts] Expected token:', config.siteToken)
       throw createError({
         status: 401,
         statusText: 'Unauthorized',
