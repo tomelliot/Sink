@@ -11,13 +11,6 @@ export default eventHandler((event) => {
   console.log('🔐 [2.auth.ts] Is API path:', event.path.startsWith('/api/'))
   console.log('🔐 [2.auth.ts] Is internal API path:', event.path.startsWith('/api/_'))
   
-  // Print all config key/value pairs
-  console.log('🔐 [2.auth.ts] Full runtime config:')
-  Object.entries(config).forEach(([key, value]) => {
-    // Mask sensitive values but show their presence and length  
-    console.log(`🔐 [2.auth.ts]   ${key}:`, value)
-    
-  })
   
   console.log('🔐 [2.auth.ts] Expected site token:', config.siteToken)
   console.log('🔐 [2.auth.ts] Token matches expected:', token === config.siteToken)
