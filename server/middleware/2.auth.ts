@@ -14,25 +14,24 @@ export default eventHandler((event) => {
   // Print all config key/value pairs
   console.log('🔐 [2.auth.ts] Full runtime config:')
   Object.entries(config).forEach(([key, value]) => {
-    // Mask sensitive values but show their presence and length
-    if (key.toLowerCase().includes('token') || key.toLowerCase().includes('secret') || key.toLowerCase().includes('key')) {
-      console.log(`🔐 [2.auth.ts]   ${key}: ${value ? '*'.repeat(String(value).length) : 'undefined'} (length: ${String(value || '').length})`)
-    } else {
-      console.log(`🔐 [2.auth.ts]   ${key}:`, value)
-    }
+    // Mask sensitive values but show their presence and length  
+    console.log(`🔐 [2.auth.ts]   ${key}:`, value)
+    
   })
   
   console.log('🔐 [2.auth.ts] Expected site token:', config.siteToken)
   console.log('🔐 [2.auth.ts] Token matches expected:', token === config.siteToken)
   
+  const siteToken = event.context.cloudflare.env.SECRET_FROM_STORE.get('SITE_TOKEN')
+  
   // Check if this is an API endpoint that requires authentication
   if (event.path.startsWith('/api/') && !event.path.startsWith('/api/_')) {
     console.log('🔐 [2.auth.ts] API endpoint detected, checking authentication')
     
-    if (token !== config.siteToken) {
+    if (token !== siteToken) {
       console.log('❌ [2.auth.ts] Authentication failed - token mismatch')
       console.log('❌ [2.auth.ts] Received token:', token)
-      console.log('❌ [2.auth.ts] Expected token:', config.siteToken)
+      console.log('❌ [2.auth.ts] Expected token:', siteToken)
       throw createError({
         status: 401,
         statusText: 'Unauthorized',
