@@ -22,7 +22,7 @@ export default eventHandler((event) => {
   console.log('🔐 [2.auth.ts] Expected site token:', config.siteToken)
   console.log('🔐 [2.auth.ts] Token matches expected:', token === config.siteToken)
   
-  const siteToken = event.context.get('SITE_TOKEN')
+  const siteToken = event.context.env.get('SITE_TOKEN')
   console.log('🔐 [2.auth.ts] siteToken:', siteToken)
   console.log('🔐 [2.auth.ts] siteToken matches expected:', token === siteToken)
   
