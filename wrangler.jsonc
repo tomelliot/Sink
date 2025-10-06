@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "sink",
+  "name": "sink-link-shortener",
   "main": "dist/server/index.mjs",
   "assets": {
     "binding": "ASSETS",
@@ -26,5 +26,10 @@
       "binding": "KV",
       "id": "874176b084134eab99d35ac1042199e0" // IMPORTANT: Change this to your KV namespace ID
     }
-  ]
+  ],
+  "observability": {
+    "logs": {
+      "enabled": true
+    }
+  }
 }
